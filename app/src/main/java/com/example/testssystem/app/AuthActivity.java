@@ -50,7 +50,7 @@ public class AuthActivity extends AppCompatActivity {
         String login = preferences.getString("login", null);
         String password = preferences.getString("password", null);
         if (login != null && password != null) {
-            startActivity(new Intent(this, MainActivity.class));
+            auth(login, password);
         }
     }
 
@@ -63,7 +63,7 @@ public class AuthActivity extends AppCompatActivity {
                 null, null, null, null
         );
 
-        int id;
+        int id = -1;
         String password2;
 
         boolean success = cursor.moveToNext();
@@ -82,10 +82,12 @@ public class AuthActivity extends AppCompatActivity {
         else {
             SharedPreferences preferences = getPreferences(MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt("id", id);
             editor.putString("login", login);
             editor.putString("password", password);
             editor.apply();
+
+            MainActivity.userId = id;
+            MainActivity.userName = login;
 
             startActivity(new Intent(this, MainActivity.class));
         }

@@ -10,4 +10,5 @@
     <color name="bottom_bar_color">#DAD9D9</color>
     <color name="search_background_color">#FFF8F8F8</color>
     <color name="link_color">#0642DD</color>
+    <color name="passed_test_color">#883BEA3D</color>
 </resources>

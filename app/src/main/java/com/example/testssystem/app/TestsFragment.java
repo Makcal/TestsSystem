@@ -1,11 +1,17 @@
 package com.example.testssystem.app;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.SpannedString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,16 +64,47 @@ public class TestsFragment extends ListFragment {
             }
 
             Test test = getItem(position);
+            TestInfo testInfo = new TestInfo(test);
 
-            DB_Controller db_controller = new DB_Controller(requireContext());
-            db_controller.db.query(
-                    TestsHistory.TABLE_NAME,
-                    new String[] {"COUNT(*)"},
-                    TestsHistory.TEST_ID_COLUMN + " = " + test.id +
-                            " AND " + TestsHistory.USER_ID_COLUMN + " = " +
-            );
+            TextView testNameView = convertView.findViewById(R.id.test_name);
+            TextView testCategoryView = convertView.findViewById(R.id.test_category);
+            TextView testSubsectionView = convertView.findViewById(R.id.test_subsection);
+
+            testNameView.setText(test.name);
+            testCategoryView.setText("Категория: ");
+            SpannableStringBuilder category = new SpannableStringBuilder(testInfo.categoryName);
+            category.setSpan();
+
+            if (testInfo.isPassed) {
+                convertView.setBackgroundColor(getResources().getColor(R.color.passed_test_color, null));
+            }
+            else {
+                convertView.setBackgroundResource(0); // Reset
+            }
 
             return convertView;
+        }
+
+        private class TestInfo {
+            boolean isPassed;
+            String subsectionName;
+            String categoryName;
+
+            TestInfo(Test test) {
+                DB_Controller db_controller = new DB_Controller(requireContext());
+                Cursor cursor = db_controller.db.query(
+                        TestsHistory.TABLE_NAME,
+                        new String[] {"COUNT(*)"},
+                        TestsHistory.TEST_ID_COLUMN + " = ? AND " +
+                                TestsHistory.USER_ID_COLUMN + " =  ?",
+                        new String[] { Integer.toString(test.id), Integer.toString(MainActivity.userId) },
+                        null, null, null
+                );
+
+                boolean value = cursor.moveToNext() && cursor.getInt(0) != 0;
+
+                cursor.close();
+            }
         }
     }
 }
