@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxHeight="100dp"
+    android:padding="5dp">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Применение производной к решению задач"
+        android:autoSizeMaxTextSize="25sp"
+        android:autoSizeMinTextSize="1sp"
+        android:autoSizeTextType="uniform"
+        android:id="@+id/test_name"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/test_category"
+        app:layout_constraintVertical_weight="0.6"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/view"
+        app:layout_constraintHorizontal_weight="0.7"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Категория: Математика"
+        android:id="@+id/test_category"
+        android:textSize="15sp"
+        android:textColor="@color/link_color"
+
+        app:layout_constraintTop_toBottomOf="@id/test_name"
+        app:layout_constraintBottom_toTopOf="@id/test_subsection"
+        app:layout_constraintVertical_weight="0.2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/view"
+        app:layout_constraintHorizontal_weight="0.7"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Тема: Производная"
+        android:id="@+id/test_subsection"
+        android:textSize="15sp"
+        android:textColor="@color/link_color"
+
+        app:layout_constraintTop_toBottomOf="@id/test_category"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_weight="0.2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/view"
+        app:layout_constraintHorizontal_weight="0.7"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/view"
+
+        app:layout_constraintLeft_toRightOf="@id/test_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_weight="0.3"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
