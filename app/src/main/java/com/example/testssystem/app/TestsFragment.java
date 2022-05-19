@@ -2,11 +2,12 @@ package com.example.testssystem.app;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.SpannableString;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.SpannedString;
+import android.text.Spanned;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,10 @@ import androidx.fragment.app.ListFragment;
 
 import com.example.testssystem.R;
 import com.example.testssystem.databinding.FragmentTestsBinding;
+import com.example.testssystem.java.CategorySubsection;
 import com.example.testssystem.java.DB_Controller;
 import com.example.testssystem.java.Test;
+import com.example.testssystem.java.TestCategory;
 import com.example.testssystem.java.TestsHistory;
 
 import java.util.List;
@@ -33,9 +36,9 @@ public class TestsFragment extends ListFragment {
         binding = FragmentTestsBinding.inflate(inflater, container, false);
 
         Context context = requireContext();
-        DB_Controller db_controller = new DB_Controller(context);
+        DB_Controller dbController = new DB_Controller(context);
 
-        TestsAdapter adapter = new TestsAdapter(context, db_controller.selectAll(Test.class));
+        TestsAdapter adapter = new TestsAdapter(context, dbController.selectAll(Test.class));
         binding.list.setAdapter(adapter);
 
         return binding.getRoot();
@@ -71,9 +74,28 @@ public class TestsFragment extends ListFragment {
             TextView testSubsectionView = convertView.findViewById(R.id.test_subsection);
 
             testNameView.setText(test.name);
+
             testCategoryView.setText("Категория: ");
-            SpannableStringBuilder category = new SpannableStringBuilder(testInfo.categoryName);
-            category.setSpan();
+            testCategoryView.append(setSpan(
+                    testInfo.categoryName,
+                    new ClickableSpan() {
+                        @Override
+                        public void onClick(@NonNull View widget) {
+                            // TODO: click to view category
+                        }
+                    }
+            ));
+
+            testSubsectionView.setText("Тема: ");
+            testSubsectionView.append(setSpan(
+                    testInfo.subsectionName,
+                    new ClickableSpan() {
+                        @Override
+                        public void onClick(@NonNull View widget) {
+                            // TODO: click to view subsection
+                        }
+                    }
+            ));
 
             if (testInfo.isPassed) {
                 convertView.setBackgroundColor(getResources().getColor(R.color.passed_test_color, null));
@@ -85,14 +107,26 @@ public class TestsFragment extends ListFragment {
             return convertView;
         }
 
+        Spannable setSpan(String string, ClickableSpan onClick) {
+            SpannableStringBuilder stringBuilder = new SpannableStringBuilder(string);
+            stringBuilder.setSpan(onClick, 0, stringBuilder.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+            stringBuilder.setSpan(
+                    new ForegroundColorSpan(getResources().getColor(R.color.link_color, null)),
+                    0, stringBuilder.length(),
+                    Spanned.SPAN_EXCLUSIVE_INCLUSIVE
+            );
+            return stringBuilder;
+        }
+
         private class TestInfo {
             boolean isPassed;
             String subsectionName;
             String categoryName;
 
             TestInfo(Test test) {
-                DB_Controller db_controller = new DB_Controller(requireContext());
-                Cursor cursor = db_controller.db.query(
+                DB_Controller dbController = new DB_Controller(requireContext());
+
+                Cursor cursor = dbController.db.query(
                         TestsHistory.TABLE_NAME,
                         new String[] {"COUNT(*)"},
                         TestsHistory.TEST_ID_COLUMN + " = ? AND " +
@@ -100,10 +134,16 @@ public class TestsFragment extends ListFragment {
                         new String[] { Integer.toString(test.id), Integer.toString(MainActivity.userId) },
                         null, null, null
                 );
-
-                boolean value = cursor.moveToNext() && cursor.getInt(0) != 0;
-
+                isPassed = cursor.moveToNext() && cursor.getInt(0) != 0;
                 cursor.close();
+
+                CategorySubsection subsection = new CategorySubsection(test.subsection_id);
+                dbController.select(subsection);
+                subsectionName = subsection.name;
+
+                TestCategory category = new TestCategory(subsection.category_id);
+                dbController.select(category);
+                categoryName = category.name;
             }
         }
     }

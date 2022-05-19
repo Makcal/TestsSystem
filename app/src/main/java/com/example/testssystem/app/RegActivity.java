@@ -1,13 +1,12 @@
 package com.example.testssystem.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.testssystem.R;
 import com.example.testssystem.java.DB_Controller;
@@ -26,19 +25,11 @@ public class RegActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.password);
         etPassword2 = findViewById(R.id.password_repeat);
 
-        findViewById(R.id.register_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try_register();
-            }
-        });
+        findViewById(R.id.register_button).setOnClickListener(v -> try_register());
 
-        findViewById(R.id.auth_sign).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegActivity.this, AuthActivity.class));
-            }
-        });
+        findViewById(R.id.auth_sign).setOnClickListener(
+                v -> startActivity(new Intent(RegActivity.this, AuthActivity.class))
+        );
     }
 
     private void try_register() {
@@ -61,8 +52,8 @@ public class RegActivity extends AppCompatActivity {
             return;
         }
 
-        DB_Controller db_controller = new DB_Controller(this);
-        Cursor cursor = db_controller.db.query(
+        DB_Controller dbController = new DB_Controller(this);
+        Cursor cursor = dbController.db.query(
                 User.TABLE_NAME,
                 null,
                 User.LOGIN_COLUMN + " = \"" + login + "\"",
@@ -80,8 +71,8 @@ public class RegActivity extends AppCompatActivity {
 
     private void register(String login, String password) {
         User user = new User(0, login, password);
-        DB_Controller db_controller = new DB_Controller(this);
-        db_controller.insert(user);
+        DB_Controller dbController = new DB_Controller(this);
+        dbController.insert(user);
 
         startActivity(new Intent(RegActivity.this, AuthActivity.class));
     }

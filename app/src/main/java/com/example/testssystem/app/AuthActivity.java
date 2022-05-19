@@ -26,21 +26,15 @@ public class AuthActivity extends AppCompatActivity {
         etLogin = findViewById(R.id.login);
         etPassword = findViewById(R.id.password);
 
-        findViewById(R.id.auth_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String login = etLogin.getText().toString().trim();
-                String password = etPassword.getText().toString().trim();
-                auth(login, password);
-            }
+        findViewById(R.id.auth_button).setOnClickListener(v -> {
+            String login = etLogin.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
+            auth(login, password);
         });
 
-        findViewById(R.id.register_sign).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AuthActivity.this, RegActivity.class));
-            }
-        });
+        findViewById(R.id.register_sign).setOnClickListener(
+                v -> startActivity(new Intent(AuthActivity.this, RegActivity.class))
+        );
 
         checkAuthorization();
     }
@@ -55,8 +49,8 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void auth(String login, String password) {
-        DB_Controller db_controller = new DB_Controller(this);
-        Cursor cursor = db_controller.db.query(
+        DB_Controller dbController = new DB_Controller(this);
+        Cursor cursor = dbController.db.query(
                 User.TABLE_NAME,
                 null,
                 User.LOGIN_COLUMN + " = \"" + login + "\"",
