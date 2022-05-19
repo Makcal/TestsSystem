@@ -29,13 +29,13 @@ public class User extends DB_Record {
         this.accountType = accountType;
     }
 
-    public User(int id, String login, String password) {
-        this(id, login, password, 0);
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+        this.accountType = 0;
     }
 
-    public User() {
-
-    }
+    public User() { }
 
     public User(int id) {
         this.id = id;

@@ -39,6 +39,13 @@ public class Question extends DB_Record {
         this.id = id;
     }
 
+    public Question(String description, String right_answer, String solution, int type) {
+        this.description = description;
+        this.right_answer = right_answer;
+        this.solution = solution;
+        this.type = type;
+    }
+
     @Override
     String getTableName() {
         return TABLE_NAME;
@@ -61,7 +68,6 @@ public class Question extends DB_Record {
     @Override
     ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_COLUMN, id);
         contentValues.put(DESCRIPTION_COLUMN, description);
         contentValues.put(RIGHT_ANSWER_COLUMN, right_answer);
         contentValues.put(SOLUTION_COLUMN, solution);

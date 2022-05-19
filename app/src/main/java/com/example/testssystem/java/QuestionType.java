@@ -18,7 +18,7 @@ public class QuestionType extends DB_Record {
     public final static String ID_COLUMN = "id";
     public final static String NAME_COLUMN = "name";
 
-    public QuestionType(int id, String name, Integer subsection_id, Integer author_id, String description) {
+    public QuestionType(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -28,6 +28,10 @@ public class QuestionType extends DB_Record {
 
     public QuestionType(int id) {
         this.id = id;
+    }
+
+    public QuestionType(String name) {
+        this.name = name;
     }
 
     @Override
@@ -52,7 +56,6 @@ public class QuestionType extends DB_Record {
     @Override
     ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_COLUMN, id);
         contentValues.put(NAME_COLUMN, name);
         return contentValues;
     }

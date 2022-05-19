@@ -33,6 +33,11 @@ public class CategorySubsection extends DB_Record {
         this.id = id;
     }
 
+    public CategorySubsection(String name, int category_id) {
+        this.name = name;
+        this.category_id = category_id;
+    }
+
     @Override
     String getTableName() {
         return TABLE_NAME;
@@ -55,7 +60,6 @@ public class CategorySubsection extends DB_Record {
     @Override
     ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_COLUMN, id);
         contentValues.put(NAME_COLUMN, name);
         contentValues.put(CATEGORY_ID_COLUMN, category_id);
         return contentValues;

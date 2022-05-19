@@ -23,11 +23,14 @@ public class TestCategory extends DB_Record {
         this.name = name;
     }
 
-    public TestCategory() {
-    }
+    public TestCategory() { }
 
     public TestCategory(int id) {
         this.id = id;
+    }
+
+    public TestCategory(String name) {
+        this.name = name;
     }
 
     @Override
@@ -52,7 +55,6 @@ public class TestCategory extends DB_Record {
     @Override
     ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_COLUMN, id);
         contentValues.put(NAME_COLUMN, name);
         return contentValues;
     }

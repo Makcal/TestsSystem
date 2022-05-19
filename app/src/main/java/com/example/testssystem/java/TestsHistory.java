@@ -38,6 +38,11 @@ public class TestsHistory extends DB_Record {
         this.id = id;
     }
 
+    public TestsHistory(int test_id, int user_id) {
+        this.test_id = test_id;
+        this.user_id = user_id;
+    }
+
     @Override
     String getTableName() {
         return TABLE_NAME;
@@ -60,7 +65,6 @@ public class TestsHistory extends DB_Record {
     @Override
     ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_COLUMN, id);
         contentValues.put(TEST_ID_COLUMN, test_id);
         contentValues.put(USER_ID_COLUMN, user_id);
         contentValues.put(TIME_COLUMN, time);

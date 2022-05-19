@@ -18,7 +18,7 @@ public class UserType extends DB_Record {
     public final static String ID_COLUMN = "id";
     public final static String NAME_COLUMN = "name";
 
-    public UserType(int id, String name, Integer subsection_id, Integer author_id, String description) {
+    public UserType(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -28,6 +28,10 @@ public class UserType extends DB_Record {
 
     public UserType(int id) {
         this.id = id;
+    }
+
+    public UserType(String name) {
+        this.name = name;
     }
 
     @Override
@@ -52,7 +56,6 @@ public class UserType extends DB_Record {
     @Override
     ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_COLUMN, id);
         contentValues.put(NAME_COLUMN, name);
         return contentValues;
     }

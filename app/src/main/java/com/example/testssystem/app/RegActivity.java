@@ -70,7 +70,7 @@ public class RegActivity extends AppCompatActivity {
     }
 
     private void register(String login, String password) {
-        User user = new User(0, login, password);
+        User user = new User(login, password);
         DB_Controller dbController = new DB_Controller(this);
         dbController.insert(user);
 

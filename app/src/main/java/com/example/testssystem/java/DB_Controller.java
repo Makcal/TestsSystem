@@ -37,9 +37,9 @@ public class DB_Controller {
         return String.join(" and ", conditions);
     }
 
-    private <T> T instantiateClass(Class<T> tClass) {
+    private <T> T instantiateClass(Class<T> tableClass) {
         try {
-            return tClass.newInstance();
+            return tableClass.newInstance();
         }
         catch (IllegalAccessException | InstantiationException e) {
             return null;
@@ -96,7 +96,7 @@ public class DB_Controller {
         );
     }
 
-    public <T extends DB_Record> boolean select(T record) {
+    public <T extends DB_Record> void select(T record) throws RuntimeException {
         Cursor cursor = db.query(
                 record.getTableName(),
                 null,
@@ -106,7 +106,6 @@ public class DB_Controller {
 
         if (!cursor.moveToFirst()) {
             cursor.close();
-            return false;
         }
 
         HashMap<String, Object> values = readRecord(cursor);
@@ -115,15 +114,14 @@ public class DB_Controller {
             record.initFromMap(values);
         }
         catch (Exception e) {
-            Log.e("DB_Controller.select", "initialization from map " + values.toString() + ": ", e);
-            return false;
+            Log.e("DB_Controller.select", "initialization from map " + values + ": ", e);
+            throw new RuntimeException(e);
         }
-        return true;
     }
 
-    public <T extends DB_Record> ArrayList<T> selectAll(Class<T> tClass) {
+    public <T extends DB_Record> ArrayList<T> selectAll(Class<T> tableClass) {
         Cursor cursor = db.query(
-                Objects.requireNonNull(instantiateClass(tClass)).getTableName(),
+                Objects.requireNonNull(instantiateClass(tableClass)).getTableName(),
                 null, null, null, null, null, null
         );
         ArrayList<T> list = new ArrayList<>();
@@ -131,13 +129,13 @@ public class DB_Controller {
         cursor.moveToFirst();
         if (!cursor.isAfterLast()) {
             do {
-                T object = Objects.requireNonNull(instantiateClass(tClass));
+                T object = Objects.requireNonNull(instantiateClass(tableClass));
                 HashMap<String, Object> record = readRecord(cursor);
                 try {
                     object.initFromMap(record);
                 }
                 catch (Exception e) {
-                    Log.e("DB_Controller.selectAll", "initialization from map " + record.toString() + ": ", e);
+                    Log.e("DB_Controller.selectAll", "initialization from map " + record + ": ", e);
                     continue;
                 }
                 list.add(object);
@@ -154,27 +152,42 @@ public class DB_Controller {
 
         MyOpenHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
+            tables.add(UserType.class);
             tables.add(User.class);
+
             tables.add(TestCategory.class);
             tables.add(CategorySubsection.class);
             tables.add(Test.class);
+            tables.add(TestsHistory.class);
+
+            tables.add(QuestionType.class);
+            tables.add(Question.class);
+            tables.add(TestAndQuestion.class);
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            for (Class<? extends DB_Record> tClass : tables) {
-                db.execSQL(Objects.requireNonNull(instantiateClass(tClass)).getCreateStatement());
+            for (Class<? extends DB_Record> tableClass : tables) {
+                db.execSQL(Objects.requireNonNull(instantiateClass(tableClass)).getCreateStatement());
             }
+
+            initDataBase();
+        }
+
+        private void initDataBase() {
+
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.d("DATABASE UPGRADED:", oldVersion + " --> " + newVersion);
 
-            for (Class<? extends DB_Record> tClass : tables) {
+            for (int i = tables.size() - 1; i >= 0; i--) {
+                Class<? extends DB_Record> tableClass = tables.get(i);
                 db.execSQL(
                         "DROP TABLE IF EXISTS " +
-                        Objects.requireNonNull(instantiateClass(tClass)).getTableName()
+                        Objects.requireNonNull(instantiateClass(tableClass)).getTableName()
                 );
             }
             onCreate(db);

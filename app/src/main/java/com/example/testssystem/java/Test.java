@@ -39,6 +39,13 @@ public class Test extends DB_Record {
         this.id = id;
     }
 
+    public Test(String name, Integer subsection_id, Integer author_id, String description) {
+        this.name = name;
+        this.subsection_id = subsection_id;
+        this.author_id = author_id;
+        this.description = description;
+    }
+
     @Override
     String getTableName() {
         return TABLE_NAME;
@@ -61,7 +68,6 @@ public class Test extends DB_Record {
     @Override
     ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_COLUMN, id);
         contentValues.put(NAME_COLUMN, name);
         contentValues.put(SUBSECTION_ID_COLUMN, subsection_id);
         contentValues.put(AUTHOR_ID_COLUMN, author_id);
@@ -92,9 +98,9 @@ public class Test extends DB_Record {
         return "CREATE TABLE `tests` (\n" +
                 "  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
                 "  `name` TEXT NOT NULL,\n" +
-                "  `subsection_id` INTEGER NULL DEFAULT NULL,\n" +
-                "  `author_id` INTEGER NULL DEFAULT NULL,\n" +
-                "  `description` TEXT NULL DEFAULT NULL,\n" +
+                "  `subsection_id` INTEGER DEFAULT NULL,\n" +
+                "  `author_id` INTEGER DEFAULT NULL,\n" +
+                "  `description` TEXT DEFAULT NULL,\n" +
                 "  CONSTRAINT `fk_tests_subsections`\n" +
                 "    FOREIGN KEY (`subsection_id`)\n" +
                 "    REFERENCES `category_subsections` (`id`)\n" +
