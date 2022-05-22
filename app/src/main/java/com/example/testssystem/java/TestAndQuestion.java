@@ -12,15 +12,15 @@ import java.util.Map;
 public class TestAndQuestion extends DB_Record {
     public static final String TABLE_NAME = "test_question";
 
-    public int test_id; // PK, FK to Test.id
-    public int question_id; // PK, FK to Question.id
+    public int testId; // PK, FK to Test.id
+    public int questionId; // PK, FK to Question.id
 
     public final static String TEST_ID_COLUMN = "test_id";
     public final static String QUESTION_ID_COLUMN = "question_id";
 
-    public TestAndQuestion(int test_id, int question_id) {
-        this.test_id = test_id;
-        this.question_id = question_id;
+    public TestAndQuestion(int testId, int questionId) {
+        this.testId = testId;
+        this.questionId = questionId;
     }
 
     public TestAndQuestion() { }
@@ -41,16 +41,16 @@ public class TestAndQuestion extends DB_Record {
     @Override
     Map<String, Object> getPrimaryKey() {
         Map<String, Object> map = new HashMap<>();
-        map.put(TEST_ID_COLUMN, test_id);
-        map.put(QUESTION_ID_COLUMN, question_id);
+        map.put(TEST_ID_COLUMN, testId);
+        map.put(QUESTION_ID_COLUMN, questionId);
         return map;
     }
 
     @Override
     ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TEST_ID_COLUMN, test_id);
-        contentValues.put(QUESTION_ID_COLUMN, question_id);
+        contentValues.put(TEST_ID_COLUMN, testId);
+        contentValues.put(QUESTION_ID_COLUMN, questionId);
         return contentValues;
     }
 
@@ -58,8 +58,8 @@ public class TestAndQuestion extends DB_Record {
     @Override
     void initFromMap(Map<String, Object> map) throws MissingColumnException, InvalidColumnTypeException {
         try {
-            test_id = (int) map.get(TEST_ID_COLUMN);
-            question_id = (int) map.get(QUESTION_ID_COLUMN);
+            testId = (int) map.get(TEST_ID_COLUMN);
+            questionId = (int) map.get(QUESTION_ID_COLUMN);
         }
         catch (NullPointerException e) {
             throw new MissingColumnException(e);

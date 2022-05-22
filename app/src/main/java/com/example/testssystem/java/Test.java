@@ -14,8 +14,8 @@ public class Test extends DB_Record {
 
     public int id; // PK
     public String name;
-    public Integer subsection_id = null; // FK to CategorySubsection.id
-    public Integer author_id = null; // FK to User.id
+    public Integer subsectionId = null; // FK to CategorySubsection.id
+    public Integer authorId = null; // FK to User.id
     public String description = null;
 
     public final static String ID_COLUMN = "id";
@@ -30,10 +30,10 @@ public class Test extends DB_Record {
         this.id = id;
     }
 
-    public Test(String name, Integer subsection_id, Integer author_id, String description) {
+    public Test(String name, Integer subsectionId, Integer authorId, String description) {
         this.name = name;
-        this.subsection_id = subsection_id;
-        this.author_id = author_id;
+        this.subsectionId = subsectionId;
+        this.authorId = authorId;
         this.description = description;
     }
 
@@ -60,8 +60,8 @@ public class Test extends DB_Record {
     ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME_COLUMN, name);
-        contentValues.put(SUBSECTION_ID_COLUMN, subsection_id);
-        contentValues.put(AUTHOR_ID_COLUMN, author_id);
+        contentValues.put(SUBSECTION_ID_COLUMN, subsectionId);
+        contentValues.put(AUTHOR_ID_COLUMN, authorId);
         contentValues.put(DESCRIPTION_COLUMN, description);
         return contentValues;
     }
@@ -72,8 +72,8 @@ public class Test extends DB_Record {
         try {
             id = (int) map.get(ID_COLUMN);
             name = (String) map.get(NAME_COLUMN);
-            subsection_id = (Integer) map.get(SUBSECTION_ID_COLUMN);
-            author_id = (Integer) map.get(AUTHOR_ID_COLUMN);
+            subsectionId = (Integer) map.get(SUBSECTION_ID_COLUMN);
+            authorId = (Integer) map.get(AUTHOR_ID_COLUMN);
             description = (String) map.get(DESCRIPTION_COLUMN);
         }
         catch (NullPointerException e) {

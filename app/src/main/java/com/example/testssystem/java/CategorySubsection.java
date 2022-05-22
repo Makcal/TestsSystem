@@ -14,7 +14,7 @@ public class CategorySubsection extends DB_Record {
 
     public int id; // PK
     public String name;
-    public int category_id; // FK to TestCategory.id
+    public int categoryId; // FK to TestCategory.id
 
     public final static String ID_COLUMN = "id";
     public final static String NAME_COLUMN = "name";
@@ -26,9 +26,9 @@ public class CategorySubsection extends DB_Record {
         this.id = id;
     }
 
-    public CategorySubsection(String name, int category_id) {
+    public CategorySubsection(String name, int categoryId) {
         this.name = name;
-        this.category_id = category_id;
+        this.categoryId = categoryId;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class CategorySubsection extends DB_Record {
     ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME_COLUMN, name);
-        contentValues.put(CATEGORY_ID_COLUMN, category_id);
+        contentValues.put(CATEGORY_ID_COLUMN, categoryId);
         return contentValues;
     }
 
@@ -64,7 +64,7 @@ public class CategorySubsection extends DB_Record {
         try {
             id = (int) map.get(ID_COLUMN);
             name = (String) map.get(NAME_COLUMN);
-            category_id = (int) map.get(CATEGORY_ID_COLUMN);
+            categoryId = (int) map.get(CATEGORY_ID_COLUMN);
         }
         catch (NullPointerException e) {
             throw new MissingColumnException(e);

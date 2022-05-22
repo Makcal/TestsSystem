@@ -14,7 +14,7 @@ public class Question extends DB_Record {
 
     public int id; // PK
     public String description;
-    public String right_answer;
+    public String rightAnswer;
     public String solution = null;
     public int type; // FK to QuestionType.id
 
@@ -31,9 +31,9 @@ public class Question extends DB_Record {
         this.id = id;
     }
 
-    public Question(String description, String right_answer, String solution, int type) {
+    public Question(String description, String rightAnswer, String solution, int type) {
         this.description = description;
-        this.right_answer = right_answer;
+        this.rightAnswer = rightAnswer;
         this.solution = solution;
         this.type = type;
     }
@@ -61,7 +61,7 @@ public class Question extends DB_Record {
     ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DESCRIPTION_COLUMN, description);
-        contentValues.put(RIGHT_ANSWER_COLUMN, right_answer);
+        contentValues.put(RIGHT_ANSWER_COLUMN, rightAnswer);
         contentValues.put(SOLUTION_COLUMN, solution);
         contentValues.put(TYPE_COLUMN, type);
         return contentValues;
@@ -73,7 +73,7 @@ public class Question extends DB_Record {
         try {
             id = (int) map.get(ID_COLUMN);
             description = (String) map.get(DESCRIPTION_COLUMN);
-            right_answer = (String) map.get(RIGHT_ANSWER_COLUMN);
+            rightAnswer = (String) map.get(RIGHT_ANSWER_COLUMN);
             solution = (String) map.get(SOLUTION_COLUMN);
             type = (int) map.get(TYPE_COLUMN);
         }

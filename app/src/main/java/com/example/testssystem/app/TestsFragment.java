@@ -137,11 +137,11 @@ public class TestsFragment extends ListFragment {
                 isPassed = cursor.moveToNext() && cursor.getInt(0) != 0;
                 cursor.close();
 
-                CategorySubsection subsection = new CategorySubsection(test.subsection_id);
+                CategorySubsection subsection = new CategorySubsection(test.subsectionId);
                 dbController.select(subsection);
                 subsectionName = subsection.name;
 
-                TestCategory category = new TestCategory(subsection.category_id);
+                TestCategory category = new TestCategory(subsection.categoryId);
                 dbController.select(category);
                 categoryName = category.name;
             }
