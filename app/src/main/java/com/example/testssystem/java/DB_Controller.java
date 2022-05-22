@@ -100,7 +100,7 @@ public class DB_Controller {
         );
     }
 
-    public <T extends DB_Record> void select(T record) throws RuntimeException {
+    public <T extends DB_Record> void query(T record) throws RuntimeException {
         Cursor cursor = db.query(
                 record.getTableName(),
                 null,
@@ -110,6 +110,7 @@ public class DB_Controller {
 
         if (!cursor.moveToFirst()) {
             cursor.close();
+            return;
         }
 
         HashMap<String, Object> values = readRecord(cursor);
