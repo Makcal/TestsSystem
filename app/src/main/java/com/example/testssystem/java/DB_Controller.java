@@ -1,6 +1,7 @@
 package com.example.testssystem.java;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -71,8 +73,8 @@ public class DB_Controller {
         return map;
     }
 
-    public void insert(DB_Record object) {
-        db.insert(object.getTableName(), null, object.toContentValues());
+    public int insert(DB_Record object) {
+        return (int)db.insert(object.getTableName(), null, object.toContentValues());
     }
 
     public void update(DB_Record object) {
@@ -84,10 +86,12 @@ public class DB_Controller {
         );
     }
 
+    @SuppressWarnings("unused")
     public void deleteAll(String table) {
         db.delete(table, null, null);
     }
 
+    @SuppressWarnings("unused")
     public void delete(DB_Record object) {
         db.delete(
                 object.getTableName(),
@@ -176,13 +180,55 @@ public class DB_Controller {
         }
 
         private void initDataBase() {
+            insert(new UserType("user"));
+            insert(new UserType("teacher"));
+            ContentValues adminContentValues = new ContentValues();
+            adminContentValues.put(UserType.ID_COLUMN, 255);
+            adminContentValues.put(UserType.NAME_COLUMN, "admin");
+            db.insert(UserType.TABLE_NAME, null, adminContentValues);
 
+            User admin = new User("admin", "admin");
+            admin.accountType = 255;
+            insert(admin);
+
+            int optionQuestionTypeId = insert(new QuestionType("option"));
+            int openQuestionTypeId = insert(new QuestionType("open"));
+
+            List<Integer> categoryIds = new ArrayList<>();
+            categoryIds.add(insert(new TestCategory("Математика")));
+            categoryIds.add(insert(new TestCategory("Информатика")));
+            categoryIds.add(insert(new TestCategory("Биология")));
+            categoryIds.add(insert(new TestCategory("История")));
+
+            List<Integer> mathSubsectionIds = new ArrayList<>();
+            mathSubsectionIds.add(insert(new CategorySubsection("Арифметика", categoryIds.get(0))));
+            mathSubsectionIds.add(insert(new CategorySubsection("Линейные Уравнения", categoryIds.get(0))));
+            mathSubsectionIds.add(insert(new CategorySubsection("Планиметрия", categoryIds.get(0))));
+            mathSubsectionIds.add(insert(new CategorySubsection("Производная", categoryIds.get(0))));
+
+            List<Integer> questionIds = new ArrayList<>();
+            questionIds.add(insert(new Question("Найдите значение выражения: 2+2", "4", null, openQuestionTypeId)));
+            questionIds.add(insert(new Question("Наименьшее натуральное число - ?", "", null, optionQuestionTypeId)));
+            insert(new OptionAnswer("0", questionIds.get(1), false));
+            insert(new OptionAnswer("1", questionIds.get(1), true));
+            insert(new OptionAnswer("0.1", questionIds.get(1), false));
+            insert(new OptionAnswer("-1", questionIds.get(1), false));
+            questionIds.add(insert(new Question("Как зовут нашего преподавателя?", "родион", null, openQuestionTypeId)));
+            questionIds.add(insert(new Question("Вы любите бананы?", "", "Разве не все любят бананы?)", optionQuestionTypeId)));
+            insert(new OptionAnswer("Да", questionIds.get(3), true));
+            insert(new OptionAnswer("Нет", questionIds.get(3), false));
+
+            List<Integer> testIds = new ArrayList<>();
+            testIds.add(insert(new Test("Простейшая математика", mathSubsectionIds.get(0), null, "Тест для 1-го класса")));
+            insert(new TestAndQuestion(testIds.get(0), questionIds.get(0)));
+            insert(new TestAndQuestion(testIds.get(0), questionIds.get(1)));
+            testIds.add(insert(new Test("Тестоый тест", null, 0, "Тест для самого классного приложения ;)")));
+            insert(new TestAndQuestion(testIds.get(1), questionIds.get(2)));
+            insert(new TestAndQuestion(testIds.get(1), questionIds.get(3)));
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.d("DATABASE UPGRADED:", oldVersion + " --> " + newVersion);
-
             for (int i = tables.size() - 1; i >= 0; i--) {
                 Class<? extends DB_Record> tableClass = tables.get(i);
                 db.execSQL(
@@ -191,6 +237,7 @@ public class DB_Controller {
                 );
             }
             onCreate(db);
+            Log.d("DATABASE UPGRADED:", oldVersion + " --> " + newVersion);
         }
     }
 
