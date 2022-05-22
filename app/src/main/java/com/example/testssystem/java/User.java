@@ -22,13 +22,6 @@ public class User extends DB_Record {
     public final static String PASSWORD_COLUMN = "password";
     public final static String ACCOUNT_TYPE_COLUMN = "account_type";
 
-    public User(int id, String login, String password, int accountType) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.accountType = accountType;
-    }
-
     public User(String login, String password) {
         this.login = login;
         this.password = password;

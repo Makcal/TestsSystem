@@ -24,16 +24,7 @@ public class Test extends DB_Record {
     public final static String AUTHOR_ID_COLUMN = "author_id";
     public final static String DESCRIPTION_COLUMN = "description";
 
-    public Test(int id, String name, Integer subsection_id, Integer author_id, String description) {
-        this.id = id;
-        this.name = name;
-        this.subsection_id = subsection_id;
-        this.author_id = author_id;
-        this.description = description;
-    }
-
-    public Test() {
-    }
+    public Test() { }
 
     public Test(int id) {
         this.id = id;

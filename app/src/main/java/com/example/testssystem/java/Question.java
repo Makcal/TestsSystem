@@ -24,14 +24,6 @@ public class Question extends DB_Record {
     public final static String SOLUTION_COLUMN = "solution";
     public final static String TYPE_COLUMN = "type";
 
-    public Question(int id, String description, String right_answer, String solution, int type) {
-        this.id = id;
-        this.description = description;
-        this.right_answer = right_answer;
-        this.solution = solution;
-        this.type = type;
-    }
-
     public Question() {
     }
 

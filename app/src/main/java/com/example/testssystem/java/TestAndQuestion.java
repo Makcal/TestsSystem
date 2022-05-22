@@ -23,8 +23,7 @@ public class TestAndQuestion extends DB_Record {
         this.question_id = question_id;
     }
 
-    public TestAndQuestion() {
-    }
+    public TestAndQuestion() { }
 
     @Override
     String getTableName() {

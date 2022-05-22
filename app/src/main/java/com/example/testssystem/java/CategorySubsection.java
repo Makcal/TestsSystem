@@ -20,14 +20,7 @@ public class CategorySubsection extends DB_Record {
     public final static String NAME_COLUMN = "name";
     public final static String CATEGORY_ID_COLUMN = "category_id";
 
-    public CategorySubsection(int id, String name, int category_id) {
-        this.id = id;
-        this.name = name;
-        this.category_id = category_id;
-    }
-
-    public CategorySubsection() {
-    }
+    public CategorySubsection() { }
 
     public CategorySubsection(int id) {
         this.id = id;

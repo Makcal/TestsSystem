@@ -18,11 +18,6 @@ public class TestCategory extends DB_Record {
     public final static String ID_COLUMN = "id";
     public final static String NAME_COLUMN = "name";
 
-    public TestCategory(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     public TestCategory() { }
 
     public TestCategory(int id) {

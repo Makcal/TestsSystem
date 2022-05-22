@@ -18,13 +18,7 @@ public class UserType extends DB_Record {
     public final static String ID_COLUMN = "id";
     public final static String NAME_COLUMN = "name";
 
-    public UserType(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public UserType() {
-    }
+    public UserType() { }
 
     public UserType(int id) {
         this.id = id;

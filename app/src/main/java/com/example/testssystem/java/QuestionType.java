@@ -18,13 +18,7 @@ public class QuestionType extends DB_Record {
     public final static String ID_COLUMN = "id";
     public final static String NAME_COLUMN = "name";
 
-    public QuestionType(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public QuestionType() {
-    }
+    public QuestionType() { }
 
     public QuestionType(int id) {
         this.id = id;

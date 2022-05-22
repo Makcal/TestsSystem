@@ -24,15 +24,7 @@ public class TestsHistory extends DB_Record {
     public final static String USER_ID_COLUMN = "user_id";
     public final static String TIME_COLUMN = "time";
 
-    public TestsHistory(int id, int test_id, int user_id, Integer time) {
-        this.id = id;
-        this.test_id = test_id;
-        this.user_id = user_id;
-        this.time = time;
-    }
-
-    public TestsHistory() {
-    }
+    public TestsHistory() { }
 
     public TestsHistory(int id) {
         this.id = id;
