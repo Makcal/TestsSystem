@@ -18,7 +18,7 @@ import java.util.Objects;
 
 public class DB_Controller {
     private static final String DATABASE_NAME = "testssystem.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 6;
 
     public SQLiteDatabase db;
 
@@ -169,6 +169,7 @@ public class DB_Controller {
             tables.add(QuestionType.class);
             tables.add(Question.class);
             tables.add(TestAndQuestion.class);
+            tables.add(OptionAnswer.class);
         }
 
         @Override
@@ -177,6 +178,7 @@ public class DB_Controller {
                 db.execSQL(Objects.requireNonNull(instantiateClass(tableClass)).getCreateStatement());
             }
 
+            DB_Controller.this.db = db;
             initDataBase();
         }
 
@@ -223,7 +225,7 @@ public class DB_Controller {
             testIds.add(insert(new Test("Простейшая математика", mathSubsectionIds.get(0), null, "Тест для 1-го класса")));
             insert(new TestAndQuestion(testIds.get(0), questionIds.get(0)));
             insert(new TestAndQuestion(testIds.get(0), questionIds.get(1)));
-            testIds.add(insert(new Test("Тестоый тест", null, 0, "Тест для самого классного приложения ;)")));
+            testIds.add(insert(new Test("Тестовый тест", null, 1, "Тест для самого классного приложения ;)")));
             insert(new TestAndQuestion(testIds.get(1), questionIds.get(2)));
             insert(new TestAndQuestion(testIds.get(1), questionIds.get(3)));
         }
