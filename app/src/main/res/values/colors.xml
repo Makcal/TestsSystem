@@ -11,4 +11,5 @@
     <color name="search_background_color">#FFF8F8F8</color>
     <color name="link_color">#0642DD</color>
     <color name="passed_test_color">#883BEA3D</color>
+    <color name="profile_icon_background">#706F6F</color>
 </resources>

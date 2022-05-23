@@ -25,4 +25,6 @@
     <string name="filters_button_desc">Фильтры</string>
     <string name="test_menu_title">Тесты</string>
     <string name="profile_menu_title">Профиль</string>
+    <!-- Profile fragment -->
+    <string name="profile_icon_content_desc">Профиль</string>
 </resources>
