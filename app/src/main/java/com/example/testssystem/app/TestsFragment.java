@@ -3,15 +3,19 @@ package com.example.testssystem.app;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +31,7 @@ import com.example.testssystem.java.TestCategory;
 import com.example.testssystem.java.TestsHistory;
 import com.example.testssystem.java.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestsFragment extends ListFragment {
@@ -50,6 +55,19 @@ public class TestsFragment extends ListFragment {
 
         binding.list.setAdapter(adapter);
 
+        binding.searchQuery.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                adapter.getFilter().filter(s);
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -60,12 +78,13 @@ public class TestsFragment extends ListFragment {
     }
 
     class TestsAdapter extends ArrayAdapter<Test> {
-
+        final List<Test> originalValues;
         List<Test> objects;
+        TestFilter filter;
 
         public TestsAdapter(@NonNull Context context, @NonNull List<Test> objects) {
             super(context, R.layout.test_item, objects);
-            this.objects = objects;
+            this.objects = originalValues = new ArrayList<>(objects);
         }
 
         @NonNull
@@ -138,7 +157,8 @@ public class TestsFragment extends ListFragment {
             return convertView;
         }
 
-        Spannable setSpan(String string, ClickableSpan onClick) {
+        @NonNull
+        private Spannable setSpan(String string, ClickableSpan onClick) {
             SpannableStringBuilder stringBuilder = new SpannableStringBuilder(string);
             stringBuilder.setSpan(onClick, 0, stringBuilder.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
             stringBuilder.setSpan(
@@ -149,13 +169,22 @@ public class TestsFragment extends ListFragment {
             return stringBuilder;
         }
 
+        @NonNull
+        @Override
+        public Filter getFilter() {
+            if (filter == null) {
+                filter = new TestFilter();
+            }
+            return filter;
+        }
+
         private class TestInfo {
             boolean isPassed;
             String subsectionName;
             String categoryName;
             String authorName;
 
-            TestInfo(Test test) {
+            TestInfo(@NonNull Test test) {
                 DB_Controller dbController = new DB_Controller(requireContext());
 
                 Cursor cursor = dbController.db.query(
@@ -191,6 +220,51 @@ public class TestsFragment extends ListFragment {
                 else {
                     authorName = null;
                 }
+            }
+        }
+
+        private class TestFilter extends Filter {
+            @NonNull
+            @Override
+            protected FilterResults performFiltering(CharSequence prefix) {
+                final FilterResults results = new FilterResults();
+                if (prefix == null || prefix.length() == 0) {
+                    final ArrayList<Test> list;
+                    list = new ArrayList<>(originalValues);
+                    results.values = list;
+                    results.count = list.size();
+                } else {
+                    final String prefixString = prefix.toString().trim().toLowerCase();
+                    final ArrayList<Test> newValues = new ArrayList<>();
+
+                    for (Test test : originalValues) {
+                        final String testName = test.name.toLowerCase();
+                        if (testName.startsWith(prefixString)) {
+                            newValues.add(test);
+                        } else {
+                            final String[] words = testName.split(" ");
+                            for (String word : words) {
+                                if (word.startsWith(prefixString)) {
+                                    newValues.add(test);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    results.values = newValues;
+                    results.count = newValues.size();
+                    Log.e("AAAAA", Integer.toString(newValues.size()));
+                }
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, @NonNull FilterResults results) {
+                //noinspection unchecked
+                objects = (List<Test>) results.values;
+                Log.e("AAAAA", Integer.toString(objects.size()));
+                notifyDataSetChanged();
             }
         }
     }
