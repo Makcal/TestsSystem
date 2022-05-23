@@ -10,7 +10,6 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -269,7 +268,6 @@ public class TestsFragment extends ListFragment {
 
                     results.values = newValues;
                     results.count = newValues.size();
-                    Log.e("AAAAA", Integer.toString(newValues.size()));
                 }
                 return results;
             }
