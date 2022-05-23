@@ -14,7 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 
@@ -77,14 +77,30 @@ public class TestsFragment extends ListFragment {
         binding = null;
     }
 
-    class TestsAdapter extends ArrayAdapter<Test> {
+    class TestsAdapter extends BaseAdapter {
+        LayoutInflater layoutInflater;
         final List<Test> originalValues;
         List<Test> objects;
         TestFilter filter;
 
         public TestsAdapter(@NonNull Context context, @NonNull List<Test> objects) {
-            super(context, R.layout.test_item, objects);
+            this.layoutInflater = LayoutInflater.from(context);
             this.objects = originalValues = new ArrayList<>(objects);
+        }
+
+        @Override
+        public int getCount() {
+            return objects.size();
+        }
+
+        @Override
+        public Test getItem(int position) {
+            return objects.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
         }
 
         @NonNull
@@ -170,7 +186,6 @@ public class TestsFragment extends ListFragment {
         }
 
         @NonNull
-        @Override
         public Filter getFilter() {
             if (filter == null) {
                 filter = new TestFilter();
@@ -263,7 +278,6 @@ public class TestsFragment extends ListFragment {
             protected void publishResults(CharSequence constraint, @NonNull FilterResults results) {
                 //noinspection unchecked
                 objects = (List<Test>) results.values;
-                Log.e("AAAAA", Integer.toString(objects.size()));
                 notifyDataSetChanged();
             }
         }
