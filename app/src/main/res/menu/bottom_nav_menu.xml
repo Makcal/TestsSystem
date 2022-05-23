@@ -6,11 +6,11 @@
     <item
         android:id="@+id/navigation_tests"
         android:icon="@drawable/ic_tests_button"
-        android:title="" />
+        android:title="@string/test_menu_title" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_profile_button"
-        android:title="" />
+        android:title="@string/profile_menu_title" />
 
 </menu>
