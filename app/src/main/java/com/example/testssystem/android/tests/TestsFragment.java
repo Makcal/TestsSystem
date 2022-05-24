@@ -1,4 +1,7 @@
-package com.example.testssystem.app;
+package com.example.testssystem.android.tests;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -21,7 +24,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.ListFragment;
 
-import com.example.testssystem.R;
 import com.example.testssystem.databinding.FragmentTestsBinding;
 import com.example.testssystem.java.CategorySubsection;
 import com.example.testssystem.java.DB_Controller;
@@ -30,8 +32,8 @@ import com.example.testssystem.java.TestCategory;
 import com.example.testssystem.java.TestsHistory;
 import com.example.testssystem.java.User;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.testssystem.R;
+import com.example.testssystem.android.start.MainActivity;
 
 public class TestsFragment extends ListFragment {
 

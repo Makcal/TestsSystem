@@ -1,4 +1,4 @@
-package com.example.testssystem.app;
+package com.example.testssystem.android.start;
 
 import android.content.Intent;
 import android.database.Cursor;

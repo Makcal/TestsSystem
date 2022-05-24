@@ -11,14 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestsSystem">
         <activity
-            android:name=".app.MainActivity"
+            android:name=".android.start.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main" />
         <activity
-            android:name=".app.RegActivity"
+            android:name=".android.start.RegActivity"
             android:exported="true" />
         <activity
-            android:name=".app.AuthActivity"
+            android:name=".android.start.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

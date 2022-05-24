@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
+
     android:background="@color/passed_test_color"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/test_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Применение производной к решению задач"
+
+        tools:text="Применение производной к решению задач"
         android:autoSizeMaxTextSize="25sp"
         android:autoSizeMinTextSize="1sp"
         android:autoSizeTextType="uniform"
-        android:id="@+id/test_name"
         android:textSize="25sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -27,8 +31,9 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Категория: Математика"
         android:id="@+id/test_category"
+
+        tools:text="Категория: Математика"
         android:textSize="15sp"
 
         app:layout_constraintTop_toBottomOf="@id/test_name"
@@ -39,8 +44,9 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Тема: Производная"
         android:id="@+id/test_subsection"
+
+        tools:text="Тема: Производная"
         android:textSize="15sp"
 
         app:layout_constraintTop_toBottomOf="@id/test_category"
@@ -52,7 +58,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/author"
-        android:text="Автор:\nadmin"
+
+        tools:text="Автор:\n admin"
         android:textAlignment="textEnd"
         android:textSize="15sp"
 

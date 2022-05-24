@@ -7,8 +7,33 @@
 
     <fragment
         android:id="@+id/navigation_tests"
-        android:name="com.example.testssystem.app.TestsFragment"
+        android:name="com.example.testssystem.android.tests.TestsFragment"
         android:label="@string/title_tests"
         tools:layout="@layout/fragment_tests" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.testssystem.android.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_securitySettingsFragment"
+            app:destination="@id/securitySettingsFragment" />
+        <action
+            android:id="@+id/action_navigation_profile_to_accountSettingsFragment"
+            app:destination="@id/accountSettingsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/accountSettingsFragment"
+        android:name="com.example.testssystem.android.profile.AccountSettingsFragment"
+        android:label="@string/account_settings_title"
+        tools:layout="@layout/fragment_account_settings" />
+
+    <fragment
+        android:id="@+id/securitySettingsFragment"
+        android:name="com.example.testssystem.android.profile.SecuritySettingsFragment"
+        android:label="@string/security_settings_title"
+        tools:layout="@layout/fragment_security_settings" />
 
 </navigation>

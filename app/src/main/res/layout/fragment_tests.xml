@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.TestsFragment">
+    tools:context=".android.tests.TestsFragment">
 
     <EditText
         android:layout_width="0dp"
@@ -40,6 +40,9 @@
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
+        tools:listitem="@layout/test_item"
+
         app:layout_constraintTop_toBottomOf="@+id/search_query"
         app:layout_constraintBottom_toBottomOf="parent"
         />
