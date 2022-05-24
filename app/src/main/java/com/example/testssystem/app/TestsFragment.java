@@ -35,8 +35,6 @@ import java.util.List;
 
 public class TestsFragment extends ListFragment {
 
-    private FragmentTestsBinding binding;
-
     TestsAdapter adapter;
 
     @Override
@@ -50,7 +48,7 @@ public class TestsFragment extends ListFragment {
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentTestsBinding.inflate(inflater, container, false);
+        FragmentTestsBinding binding = FragmentTestsBinding.inflate(inflater, container, false);
 
         binding.list.setAdapter(adapter);
 
@@ -68,12 +66,6 @@ public class TestsFragment extends ListFragment {
         });
 
         return binding.getRoot();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 
     class TestsAdapter extends BaseAdapter {
@@ -99,8 +91,11 @@ public class TestsFragment extends ListFragment {
 
         @Override
         public long getItemId(int position) {
-            return position;
+            return getItem(position).id;
         }
+
+        @Override
+        public boolean hasStableIds() { return true; }
 
         @NonNull
         @Override
