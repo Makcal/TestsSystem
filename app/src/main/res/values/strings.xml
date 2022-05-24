@@ -29,4 +29,5 @@
     <string name="profile_icon_content_desc">Профиль</string>
     <string name="security_settings_title">Безопасность</string>
     <string name="account_settings_title">Аккаунт</string>
+    <string name="logout">Выйти</string>
 </resources>

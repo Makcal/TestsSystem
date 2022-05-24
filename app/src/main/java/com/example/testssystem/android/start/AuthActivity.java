@@ -39,7 +39,7 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void checkAuthorization() {
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("login_data", MODE_PRIVATE);
         String login = preferences.getString("login", null);
         String password = preferences.getString("password", null);
         if (login != null && password != null) {
@@ -73,7 +73,7 @@ public class AuthActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.login_failed, Toast.LENGTH_SHORT).show();
         }
         else {
-            SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+            SharedPreferences preferences = getSharedPreferences("login_data", MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("login", login);
             editor.putString("password", password);
@@ -82,7 +82,10 @@ public class AuthActivity extends AppCompatActivity {
             MainActivity.userId = id;
             MainActivity.userName = login;
 
-            startActivity(new Intent(this, MainActivity.class));
+            Intent i = new Intent(this, MainActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            finish();
         }
     }
 }
