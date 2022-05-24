@@ -53,6 +53,23 @@
         app:layout_constraintBottom_toBottomOf="@+id/profile_icon"
         />
 
+    <TextView
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.7"
+        android:layout_height="0dp"
+        android:id="@+id/username"
+        android:layout_marginTop="15dp"
+
+        tools:text="Makcal"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+
+        app:layout_constraintTop_toBottomOf="@id/profile_icon"
+        app:layout_constraintLeft_toLeftOf="@id/icon_frame"
+        app:layout_constraintRight_toRightOf="@id/icon_frame"
+        app:layout_constraintBottom_toBottomOf="@id/icon_frame"/>
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="0dp"

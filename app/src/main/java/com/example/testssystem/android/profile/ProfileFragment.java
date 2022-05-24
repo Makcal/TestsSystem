@@ -25,6 +25,7 @@ public class ProfileFragment extends ListFragment {
         binding.list.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, sections));
 
         binding.profileLetter.setText(MainActivity.userName.substring(0, 1));
+        binding.username.setText(MainActivity.userName);
 
         return binding.getRoot();
     }
