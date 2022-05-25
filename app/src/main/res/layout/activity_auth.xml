@@ -1,96 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    tools:context=".android.start.AuthActivity"
-    android:weightSum="1">
+    tools:context=".android.start.AuthActivity">
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="50sp"/>
 
-    <LinearLayout
-        android:layout_weight="0.5"
+        android:text="@string/app_name"
+        android:textSize="50sp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/frame"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <View
+        android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:weightSum="1">
+        app:layout_constraintHeight_percent="0.45"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.15"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            android:gravity="center">
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <EditText
-                android:layout_weight="0.8"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:hint="@string/login"
-                android:autofillHints="username"
-                android:inputType="text"
-                android:id="@+id/login"/>
+    <EditText
+        android:id="@+id/login"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
 
-        </LinearLayout>
+        android:hint="@string/login"
+        android:autofillHints="username"
+        android:inputType="text"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.15"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            android:gravity="center">
+        app:layout_constraintTop_toTopOf="@id/frame"
+        app:layout_constraintBottom_toTopOf="@id/password"
+        app:layout_constraintVertical_weight="0.15"
+        app:layout_constraintLeft_toLeftOf="@id/frame"
+        app:layout_constraintRight_toRightOf="@id/frame"/>
 
-            <EditText
-                android:layout_weight="0.8"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:hint="@string/password"
-                android:autofillHints="password"
-                android:inputType="textPassword"
-                android:id="@+id/password"/>
+    <EditText
+        android:id="@+id/password"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
 
-        </LinearLayout>
+        android:hint="@string/password"
+        android:autofillHints="password"
+        android:inputType="textPassword"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
-            android:gravity="center"
-            android:orientation="vertical">
+        app:layout_constraintTop_toBottomOf="@id/login"
+        app:layout_constraintBottom_toTopOf="@id/button_frame"
+        app:layout_constraintVertical_weight="0.15"
+        app:layout_constraintLeft_toLeftOf="@id/frame"
+        app:layout_constraintRight_toRightOf="@id/frame"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/auth"
-                android:id="@+id/auth_button"/>
+    <View
+        android:id="@+id/button_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
 
-        </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintBottom_toTopOf="@id/register_sign"
+        app:layout_constraintVertical_weight="0.25"
+        app:layout_constraintLeft_toLeftOf="@id/frame"
+        app:layout_constraintRight_toRightOf="@id/frame"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.3"
-            android:gravity="center"
-            android:orientation="vertical">
+    <Button
+        android:id="@+id/auth_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/u_register"
-                android:id="@+id/register_sign"/>
+        android:text="@string/auth"
 
-        </LinearLayout>
+        app:layout_constraintTop_toTopOf="@id/button_frame"
+        app:layout_constraintBottom_toBottomOf="@id/button_frame"
+        app:layout_constraintRight_toRightOf="@id/button_frame"
+        app:layout_constraintLeft_toLeftOf="@id/button_frame"/>
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/register_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
 
-</LinearLayout>
+        android:text="@string/u_register"
+        android:gravity="center"
+
+        app:layout_constraintTop_toBottomOf="@id/button_frame"
+        app:layout_constraintBottom_toTopOf="@id/stub"
+        app:layout_constraintVertical_weight="0.3"
+        app:layout_constraintLeft_toLeftOf="@id/frame"
+        app:layout_constraintRight_toRightOf="@id/frame"/>
+
+    <View
+        android:id="@+id/stub"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="0.15"
+
+        app:layout_constraintTop_toBottomOf="@id/register_sign"
+        app:layout_constraintBottom_toBottomOf="@id/frame"
+        app:layout_constraintLeft_toLeftOf="@id/frame"
+        app:layout_constraintRight_toRightOf="@id/frame"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
