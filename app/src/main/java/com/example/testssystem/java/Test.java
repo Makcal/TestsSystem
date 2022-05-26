@@ -2,6 +2,10 @@ package com.example.testssystem.java;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 
 import com.example.testssystem.exceptions.InvalidColumnTypeException;
 import com.example.testssystem.exceptions.MissingColumnException;
@@ -9,7 +13,7 @@ import com.example.testssystem.exceptions.MissingColumnException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Test extends DB_Record {
+public class Test extends DB_Record implements Parcelable {
     public final static String TABLE_NAME = "tests";
 
     public int id; // PK
@@ -104,4 +108,58 @@ public class Test extends DB_Record {
                 "    ON UPDATE CASCADE" +
                 ");";
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        if (subsectionId != null) {
+            dest.writeByte((byte) 1);
+            dest.writeInt(subsectionId);
+        }
+        else {
+            dest.writeByte((byte) 0);
+        }
+        if (authorId != null) {
+            dest.writeByte((byte) 1);
+            dest.writeInt(authorId);
+        }
+        else {
+            dest.writeByte((byte) 0);
+        }
+        dest.writeString(description);
+    }
+
+    private Test(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        if (in.readByte() == 0) {
+            subsectionId = null;
+        } else {
+            subsectionId = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            authorId = null;
+        } else {
+            authorId = in.readInt();
+        }
+        description = in.readString();
+    }
+
+    public static final Creator<Test> CREATOR = new Creator<Test>() {
+        @Override
+        public Test createFromParcel(Parcel in) {
+            return new Test(in);
+        }
+
+        @Override
+        public Test[] newArray(int size) {
+            return new Test[size];
+        }
+    };
 }

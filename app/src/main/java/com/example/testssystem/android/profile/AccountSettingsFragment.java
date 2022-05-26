@@ -26,7 +26,7 @@ public class AccountSettingsFragment extends ListFragment {
         FragmentAccountSettingsBinding binding = FragmentAccountSettingsBinding.inflate(inflater, container, false);
 
         binding.list.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, sections));
-        binding.list.addFooterView(inflater.inflate(R.layout.account_settings_footer, null, false));
+        binding.list.addFooterView(inflater.inflate(R.layout.footer_account_settings, null, false));
 
         return binding.getRoot();
     }

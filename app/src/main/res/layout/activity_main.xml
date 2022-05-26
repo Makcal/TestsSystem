@@ -26,7 +26,7 @@
 
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/bottom_bar_navigation"
+        app:navGraph="@navigation/app_navigation"
 
         app:layout_constraintBottom_toTopOf="@id/nav_bar"
         app:layout_constraintLeft_toLeftOf="parent"

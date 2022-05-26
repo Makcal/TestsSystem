@@ -24,7 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.ListFragment;
 
-import com.example.testssystem.databinding.FragmentTestsBinding;
+import com.example.testssystem.databinding.FragmentTestListBinding;
 import com.example.testssystem.java.CategorySubsection;
 import com.example.testssystem.java.DB_Controller;
 import com.example.testssystem.java.Test;
@@ -35,7 +35,7 @@ import com.example.testssystem.java.User;
 import com.example.testssystem.R;
 import com.example.testssystem.android.start.MainActivity;
 
-public class TestsFragment extends ListFragment {
+public class TestListFragment extends ListFragment {
 
     TestsAdapter adapter;
 
@@ -50,7 +50,7 @@ public class TestsFragment extends ListFragment {
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FragmentTestsBinding binding = FragmentTestsBinding.inflate(inflater, container, false);
+        FragmentTestListBinding binding = FragmentTestListBinding.inflate(inflater, container, false);
 
         binding.list.setAdapter(adapter);
 
@@ -103,7 +103,7 @@ public class TestsFragment extends ListFragment {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.test_item, parent, false);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_test, parent, false);
             }
 
             Test test = getItem(position);
